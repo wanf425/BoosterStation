@@ -14,6 +14,8 @@ namespace tolson.BoosterStation.Schedular
     public class PLCTask : BaseTask
     {
         private PLCDataService PLCDataService = PLCDataService.Instance;
+        public delegate void UpdateByPlcDataEventHandler(PlcData ddata);
+        public event UpdateByPlcDataEventHandler UpdateByPlcDataEvent;
 
         protected override void DoTask()
         {
@@ -61,6 +63,20 @@ namespace tolson.BoosterStation.Schedular
                 {
                     Console.WriteLine("PLCTask 运行异常，异常消息{0}", ex.Message);
                     Thread.Sleep(5000);
+                }
+            }
+        }
+        private void InvokeEvents(PlcData data)
+        {
+            var invocationList = UpdateByPlcDataEvent?.GetInvocationList();
+            if(invocationList != null && !cts.IsCancellationRequested)
+            {
+                foreach(UpdateByPlcDataEventHandler handler in invocationList)
+                {
+                    if(!cts.IsCancellationRequested)
+                    {
+                        handler.Invoke(data);
+                    }
                 }
             }
         }

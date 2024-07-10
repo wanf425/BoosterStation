@@ -23,8 +23,8 @@ namespace tolson.BoosterStation.UI
     public partial class FormMain : Form
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private PLCDataService PLCDataService = PLCDataService.Instance;
-        private PLCTask PlcTask = new PLCTask();
+        private PLCDataService plcDataService = PLCDataService.Instance;
+        private TaskManager taskManager = TaskManager.Instance;
         private bool isFirstScan = true;
 
         public FormMain()
@@ -43,17 +43,17 @@ namespace tolson.BoosterStation.UI
                 return;
             }
 
-            PlcTask.Start();
-            PlcTask.Events += InvokeUpdatePLCUI;
-            PlcTask.Events += HistoryDataService.Instance.UpdateByPLCData;
+            taskManager.StartAllTasks();
+            // 如何将注册代码封装转到taskManager中 TODO
+            taskManager.PlcTask.UpdateByPlcDataEvent += InvokeUpdatePLCUI;
+            taskManager.PlcTask.UpdateByPlcDataEvent += HistoryDataService.Instance.UpdateByPLCData;
         }
 
-        private void InvokeUpdatePLCUI(object obj)
+        private void InvokeUpdatePLCUI(PlcData plcData)
         {
-            PlcData plcData = obj as PlcData;
             if(plcData == null)
             {
-                Console.WriteLine("InvokeUpdatePLCUI, obj is null"); 
+                Console.WriteLine("InvokeUpdatePLCUI, plcData is null"); 
                 return;
             }
 
@@ -148,7 +148,7 @@ namespace tolson.BoosterStation.UI
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PlcTask.Stop();
+            taskManager.StopAllTasks();
         }
 
         private void button_Exit_Click(object sender, EventArgs e)
@@ -160,10 +160,10 @@ namespace tolson.BoosterStation.UI
         {
             if(this.button_pump1.Text == "启动")
             {
-                PLCDataService.CirclePump1Control(true);
+                plcDataService.CirclePump1Control(true);
             } else
             {
-                PLCDataService.CirclePump1Control(false);
+                plcDataService.CirclePump1Control(false);
             }
         }
 
@@ -171,11 +171,11 @@ namespace tolson.BoosterStation.UI
         {
             if(this.button_pump2.Text == "启动")
             {
-                PLCDataService.CirclePump2Control(true);
+                plcDataService.CirclePump2Control(true);
             }
             else
             {
-                PLCDataService.CirclePump2Control(false);
+                plcDataService.CirclePump2Control(false);
             }
         }
 
@@ -183,7 +183,7 @@ namespace tolson.BoosterStation.UI
         {
             Console.WriteLine("toggle_Pump1_CheckedChanged");
             // 修改pump1状态
-            bool result = PLCDataService.InPump1Control(toggle_Pump1.Checked);
+            bool result = plcDataService.InPump1Control(toggle_Pump1.Checked);
 
             // 操作失败，恢复状态
             if(!result)
@@ -199,7 +199,7 @@ namespace tolson.BoosterStation.UI
             Console.WriteLine("toggle_Pump2_CheckedChanged");
 
             // 修改pump2状态
-            bool result = PLCDataService.InPump2Control(toggle_Pump1.Checked);
+            bool result = plcDataService.InPump2Control(toggle_Pump1.Checked);
 
             // 操作失败，恢复状态
             if(!result)
@@ -217,7 +217,7 @@ namespace tolson.BoosterStation.UI
                 DialogResult result = new MsgBoxComfirm("是否确定要" + (valve.State ? "关闭" : "打开") + valve.ValveName + "?").ShowDialog();
                 if(result == DialogResult.OK)
                 {
-                    PLCDataService.ValveInControl(!valve.State);
+                    plcDataService.ValveInControl(!valve.State);
                 }
             }
         }
@@ -229,7 +229,7 @@ namespace tolson.BoosterStation.UI
                 DialogResult result = new MsgBoxComfirm("是否确定要" + (valve.State ? "关闭" : "打开") + valve.ValveName + "?").ShowDialog();
                 if(result == DialogResult.OK)
                 {
-                    PLCDataService.ValveOutControl(!valve.State);
+                    plcDataService.ValveOutControl(!valve.State);
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace tolson.BoosterStation.UI
             this.label_nowTime.Text = formattedDate;
 
             // 更新PLC连接状态
-            this.state_Plc.State = PLCDataService.IsConnect;
+            this.state_Plc.State = plcDataService.IsConnect;
         }
 
         private void buttonHistory_Click(object sender, EventArgs e)

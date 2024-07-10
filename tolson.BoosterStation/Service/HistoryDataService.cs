@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using tolson.BoosterStation.Dto;
+using tolson.BoosterStation.Schedular;
 using tolson.BoosterStation.Util;
 
 namespace tolson.BoosterStation.Service
@@ -15,9 +16,8 @@ namespace tolson.BoosterStation.Service
     {
         private DateTime lastUpdateTime = DateTime.Now;
         private HistoryDataService(){}
-        public void UpdateByPLCData(object obj)
+        public void UpdateByPLCData(PlcData plcData)
         {
-            PlcData plcData = obj as PlcData;
             if(plcData == null)
             {
                 Console.WriteLine("UpdateByPLCData, obj is null");

@@ -14,9 +14,6 @@ namespace tolson.BoosterStation.Schedular
     {
         protected Task runningTask;
         protected CancellationTokenSource cts = new CancellationTokenSource();
-        public delegate void EventHandler(object obj);
-        public event EventHandler Events;
-
         protected abstract void DoTask();
 
         public void Start()
@@ -50,21 +47,6 @@ namespace tolson.BoosterStation.Schedular
                     return TaskStatus.Created;
                 }
                 
-            }
-        }
-
-        public void InvokeEvents(Object param)
-        {
-            var invocationList = Events?.GetInvocationList();
-            if(invocationList != null && !cts.IsCancellationRequested)
-            {
-                foreach(EventHandler handler in invocationList)
-                {
-                    if(!cts.IsCancellationRequested)
-                    {
-                        handler.Invoke(param);
-                    }
-                }
             }
         }
     }
