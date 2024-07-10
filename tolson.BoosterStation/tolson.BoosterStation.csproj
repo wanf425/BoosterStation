@@ -106,7 +106,7 @@
     <Compile Include="Dto\PlcData.cs" />
     <Compile Include="Dto\SystemInfo.cs" />
     <Compile Include="Schedular\BaseTask.cs" />
-    <Compile Include="Schedular\PLCTask.cs" />
+    <Compile Include="Schedular\PLCDataTask.cs" />
     <Compile Include="Schedular\TaskManager.cs" />
     <Compile Include="Service\HistoryDataService.cs" />
     <Compile Include="Service\LSDataService.cs" />

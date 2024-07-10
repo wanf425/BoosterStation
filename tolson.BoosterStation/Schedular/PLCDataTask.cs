@@ -11,7 +11,7 @@ using xbd.DataConvertLib;
 
 namespace tolson.BoosterStation.Schedular
 {
-    public class PLCTask : BaseTask
+    public class PLCDataTask : BaseTask
     {
         private PLCDataService PLCDataService = PLCDataService.Instance;
         public delegate void UpdateByPlcDataEventHandler(PlcData ddata);
@@ -31,30 +31,16 @@ namespace tolson.BoosterStation.Schedular
                         {
                             InvokeEvents(result.Content);
                         }
-                        else
-                        {
-                            PLCDataService.IsConnect = false;
-                        }
+
+                        PLCDataService.IsConnect = result.IsSuccess;
                     }
                     else
                     {
-                        // 如果是第一次，直接连接
-                        if(PLCDataService.IsFirstScan)
-                        {
-                            PLCDataService.IsFirstScan = false;
-                        }
-                        else
-                        {   // 如果不是第一次，重新连接
-                            Thread.Sleep(3000);
-                            PLCDataService.Disconnect();
-                        }
-
                         var reuslt = PLCDataService.Connect(SystemInfoService.Instance.SysInfo);
                         if(!reuslt.IsSuccess)
                         {
                             throw new Exception("PLC连接异常,异常信息" + reuslt.Message);
                         }
-                        PLCDataService.IsConnect = reuslt.IsSuccess;
                     }
 
                     Thread.Sleep(1000);

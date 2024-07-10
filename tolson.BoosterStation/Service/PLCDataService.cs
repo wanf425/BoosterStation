@@ -23,13 +23,26 @@ namespace tolson.BoosterStation.Service
 
         public OperateResult Connect(SystemInfo sysInfo)
         {
+            // 如果是第一次，直接连接
+            if(this.IsFirstScan)
+            {
+                this.IsFirstScan = false;
+            }
+            else
+            {   // 如果不是第一次，重新连接
+                Thread.Sleep(1000);
+                Disconnect();
+            }
+
             s7NetLib = new S7NetLib();
             s7NetLib.CpuType = sysInfo.CpuType;
             s7NetLib.IpAddress = sysInfo.IpAddress;
             s7NetLib.Rack = sysInfo.Rack;
             s7NetLib.Slot = sysInfo.Slot;
 
-            return s7NetLib.Connect();
+            OperateResult result = s7NetLib.Connect();
+            this.IsConnect = result.IsSuccess;
+            return result;
         }
 
         public void Disconnect()
@@ -37,6 +50,7 @@ namespace tolson.BoosterStation.Service
             if(s7NetLib != null)
             {
                 s7NetLib.Disconnect();
+                IsConnect = false;
             }
         }
 

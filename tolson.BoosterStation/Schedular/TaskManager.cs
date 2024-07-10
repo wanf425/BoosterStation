@@ -11,7 +11,7 @@ namespace tolson.BoosterStation.Schedular
     public class TaskManager : Singleton<TaskManager>
     {
         public static AutoResetEvent AutoResetEvent = new AutoResetEvent(true);
-        public PLCTask PlcTask = new PLCTask();
+        public PLCDataTask PlcTask = new PLCDataTask();
 
         public void StartAllTasks()
         {
