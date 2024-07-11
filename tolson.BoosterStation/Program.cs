@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using log4net.Config;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,10 +12,12 @@ using tolson.BoosterStation.Adadpter;
 using tolson.BoosterStation.Service;
 using tolson.BoosterStation.UI;
 
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = false)]
 namespace tolson.BoosterStation
 {
     internal static class Program
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
         /// <summary>
         /// 是否退出应用程序
         /// </summary>
@@ -25,6 +29,7 @@ namespace tolson.BoosterStation
         [STAThread]
         static void Main()
         {
+            log.Info("---------------Application Start-----------------");
             bool runone;
             // 防止应用重复开启
             System.Threading.Mutex run = new System.Threading.Mutex(true, Process.GetCurrentProcess().ProcessName, out runone);//设置互斥信号量
@@ -46,9 +51,11 @@ namespace tolson.BoosterStation
                 //Application.Run(new FormLSMotion());
                 // 应用程序可以退出
                 glExitApp = true;
+                log.Info("---------------Application end-----------------");
             }
             else
             {
+                log.Info("---------------Application is already running-----------------");
                 new MsgBoxNoConfirm("This Application is already running").ShowDialog();
             }
 
