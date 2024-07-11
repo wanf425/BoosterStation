@@ -91,17 +91,16 @@ namespace tolson.BoosterStation
         /// <param name="e"></param>
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            SaveLog("-----------------------begin--------------------------");
-            SaveLog(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss "));
-            SaveLog(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss ") + "CurrentDomain_UnhandledException");
-            SaveLog(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss ") + "IsTerminating : " + e.IsTerminating.ToString());
-            SaveLog(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss ") + e.ExceptionObject.ToString());
-            SaveLog("-----------------------end----------------------------");
+            string logMessage =
+                $"CurrentDomain_UnhandledException\n" +
+                $"IsTerminating : {e.IsTerminating}\n" +
+                $"exception：{e.ExceptionObject}";
+            log.Fatal(logMessage);
             while(true)
             {//循环处理，否则应用程序将会退出
                 if(glExitApp)
                 {//标志应用程序可以退出，否则程序退出后，进程仍然在运行
-                    SaveLog("ExitApp");
+                    log.Fatal("ExitApp");
                     return;
                 }
                 System.Threading.Thread.Sleep(2 * 1000);
@@ -115,28 +114,7 @@ namespace tolson.BoosterStation
         /// <param name="e"></param>
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            SaveLog("-----------------------begin--------------------------");
-            SaveLog(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss ") + "Application_ThreadException:" + e.Exception.Message);
-            SaveLog(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss ") + e.Exception.StackTrace);
-            SaveLog("-----------------------end----------------------------");
+            log.Fatal("Application_ThreadException：", e.Exception);
         }
-
-        /// <summary>
-        /// 保存未捕获异常日志
-        /// </summary>
-        /// <param name="log"></param>
-        public static void SaveLog(string log)
-        {
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + @"\UnHandledException.txt";
-            //采用using关键字，会自动释放
-            using(FileStream fs = new FileStream(filePath, FileMode.Append))
-            {
-                using(StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default))
-                {
-                    sw.WriteLine(log);
-                }
-            }
-        }
-
     }
 }

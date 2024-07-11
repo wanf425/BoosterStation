@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,6 +27,7 @@ namespace tolson.BoosterStation.UI
         private PLCDataService plcDataService = PLCDataService.Instance;
         private TaskManager taskManager = TaskManager.Instance;
         private bool isFirstScan = true;
+        private static readonly ILog log = LogManager.GetLogger(typeof(FormMain));
 
         public FormMain()
         {
@@ -53,7 +55,7 @@ namespace tolson.BoosterStation.UI
         {
             if(plcData == null)
             {
-                Console.WriteLine("InvokeUpdatePLCUI, plcData is null"); 
+                log.Info("InvokeUpdatePLCUI, plcData is null"); 
                 return;
             }
 
@@ -181,7 +183,7 @@ namespace tolson.BoosterStation.UI
 
         private void toggle_Pump1_CheckedChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("toggle_Pump1_CheckedChanged");
+            log.Info("toggle_Pump1_CheckedChanged");
             // 修改pump1状态
             bool result = plcDataService.InPump1Control(toggle_Pump1.Checked);
 
@@ -196,7 +198,7 @@ namespace tolson.BoosterStation.UI
 
         private void toggle_Pump2_CheckedChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("toggle_Pump2_CheckedChanged");
+            log.Info("toggle_Pump2_CheckedChanged");
 
             // 修改pump2状态
             bool result = plcDataService.InPump2Control(toggle_Pump1.Checked);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace tolson.BoosterStation.Service
         private SystemInfo sysInfo = null;
         private string COMM_CONFIG_PATH = Application.StartupPath + "\\PlcConfig.ini";
         private string SYS_CONFIG_PATH = Application.StartupPath + "\\SysConfig.ini";
+        private static readonly ILog log = LogManager.GetLogger(typeof(SystemInfoService));
+
         public SystemInfo SysInfo
         {
             get
@@ -91,7 +94,7 @@ namespace tolson.BoosterStation.Service
             }
             catch(Exception ex)
             {
-                Console.WriteLine("LoadSysInfo exception: {0}", ex.StackTrace);
+                log.Error("LoadSysInfo exception", ex);
             }
         }
         /// <summary>

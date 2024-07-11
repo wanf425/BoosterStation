@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace tolson.BoosterStation.Schedular
 {
     public class PLCDataTask : BaseTask
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(PLCDataTask));
         private PLCDataService PLCDataService = PLCDataService.Instance;
         public delegate void UpdateByPlcDataEventHandler(PlcData ddata);
         public event UpdateByPlcDataEventHandler UpdateByPlcDataEvent;
@@ -47,7 +49,7 @@ namespace tolson.BoosterStation.Schedular
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine("PLCTask 运行异常，异常消息{0}", ex.Message);
+                    log.Error("PLCTask 运行异常", ex);
                     Thread.Sleep(5000);
                 }
             }

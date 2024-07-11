@@ -1,8 +1,10 @@
-﻿using MySql.Data.MySqlClient;
+﻿using log4net;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,13 +16,15 @@ namespace tolson.BoosterStation.Service
 {
     public class HistoryDataService : Singleton<HistoryDataService>
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HistoryDataService));
+
         private DateTime lastUpdateTime = DateTime.Now;
-        private HistoryDataService(){}
+        private HistoryDataService() { }
         public void UpdateByPLCData(PlcData plcData)
         {
             if(plcData == null)
             {
-                Console.WriteLine("UpdateByPLCData, obj is null");
+                log.Info("UpdateByPLCData, obj is null");
                 return;
             }
 
@@ -80,12 +84,12 @@ namespace tolson.BoosterStation.Service
             }
             catch(Exception ex)
             {
-                Console.WriteLine("保存历史数据失败" + ex.Message);
+                log.Error("保存历史数据失败", ex);
                 return false;
             }
         }
 
-        public List<HistoryData> Query(DateTime start,DateTime end)
+        public List<HistoryData> Query(DateTime start, DateTime end)
         {
             List<HistoryData> list = new List<HistoryData>();
             try
@@ -99,7 +103,7 @@ namespace tolson.BoosterStation.Service
                 };
 
                 DataTable dt = Adadpter.MySqlHelper.GetDataTable(CommandType.Text, sql, mySqlParameter);
-               
+
                 foreach(DataRow dr in dt.Rows)
                 {
                     HistoryData data = new HistoryData();
@@ -118,7 +122,7 @@ namespace tolson.BoosterStation.Service
             }
             catch(Exception ex)
             {
-                Console.WriteLine("查询历史数据失败,{0}",ex.StackTrace);
+                log.Error("查询历史数据失败", ex);
             }
 
             return list;
