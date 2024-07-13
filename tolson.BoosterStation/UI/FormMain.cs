@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using tolson.BoosterStation.Adadpter;
 using tolson.BoosterStation.Dto;
 using tolson.BoosterStation.Schedular;
 using tolson.BoosterStation.Service;
@@ -25,8 +26,8 @@ namespace tolson.BoosterStation.UI
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
         private PLCDataService plcDataService = PLCDataService.Instance;
+        private SystemInfoService systemInfoService = SystemInfoService.Instance;
         private TaskManager taskManager = TaskManager.Instance;
-        private bool isFirstScan = true;
         private static readonly ILog log = LogManager.GetLogger(typeof(FormMain));
 
         public FormMain()
@@ -36,19 +37,52 @@ namespace tolson.BoosterStation.UI
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            // 初始化数据库连接
+            MySqlHelper.ConnString = GetSQLConnectString();
+
             // 读取系统配置
-            SystemInfo sysInfo = SystemInfoService.Instance.SysInfo;
+            SystemInfo sysInfo = systemInfoService.SysInfo;
 
             if(sysInfo == null)
             {
                 new MsgBoxNoConfirm(MsgBoxNoConfirm.Title.系统提示.ToString(), "系统参数读取失败，请检查配置文件！").ShowDialog();
-                return;
             }
 
+            // 连接PLC
+            OperateResult result = plcDataService.Connect(sysInfo);
+            if(!result.IsSuccess)
+            {
+                new MsgBoxNoConfirm(MsgBoxNoConfirm.Title.系统提示.ToString(), "连接PLC失败，错误信息：" + result.Message).ShowDialog();
+            }
+
+            // 启动线程
             taskManager.StartAllTasks();
             // 如何将注册代码封装转到taskManager中 TODO
             taskManager.PlcTask.UpdateByPlcDataEvent += InvokeUpdatePLCUI;
             taskManager.PlcTask.UpdateByPlcDataEvent += HistoryDataService.Instance.UpdateByPLCData;
+        }
+
+        /// <summary>
+        /// 获取数据库连接信息
+        /// </summary>
+        /// <returns></returns>
+        private static string GetSQLConnectString()
+        {
+            string path = Application.StartupPath + "\\MySQLConfig.ini"; // string iniName = System.IO.Directory.GetCurrentDirectory() + @"\LocatSet.ini"; // MessageBox.Show(iniName);
+
+            if(System.IO.File.Exists(path))
+            {
+                string Server = IniConfigHelper.ReadIniData("MySQL", "Server", "127.0.0.1", path);
+                int Port = Convert.ToInt16(IniConfigHelper.ReadIniData("MySQL", "Port", "3306", path));
+                string Database = IniConfigHelper.ReadIniData("MySQL", "Database", "", path);
+                string User = IniConfigHelper.ReadIniData("MySQL", "User", "", path);
+                string Password = IniConfigHelper.ReadIniData("MySQL", "Password", "", path);
+                string CharacterSet = IniConfigHelper.ReadIniData("MySQL", "CharacterSet", "UTF8", path);
+
+                return $"Server='{Server}';Port={Port};Database='{Database}';User='{User}';Password='{Password}';charset='{CharacterSet}';pooling=true;SslMode='none'";                                                                                                                                                        // MessageBox.Show(MySqlHelper.Conn);
+            }
+
+            return string.Empty;
         }
 
         private void InvokeUpdatePLCUI(PlcData plcData)
@@ -73,12 +107,6 @@ namespace tolson.BoosterStation.UI
 
         private void UpdatePLCUI(PlcData plcData)
         {
-            if(isFirstScan)
-            { 
-                // 初次更新时的逻辑，目前没有
-                isFirstScan = false;
-            }
-
             // 左侧仪表
             this.meter_PressuerIn.Value = plcData.PressureIn;
             this.label_PressureIn.Text = plcData.PressureIn.ToString("f2") + " bar";

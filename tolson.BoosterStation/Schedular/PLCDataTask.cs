@@ -25,24 +25,15 @@ namespace tolson.BoosterStation.Schedular
             {
                 try
                 {
-                    if(PLCDataService.IsConnect)
+                    OperateResult<PlcData> result = PLCDataService.ReadPlcData();
+
+                    if(result.IsSuccess)
                     {
-                        OperateResult<PlcData> result = PLCDataService.ReadPlcData();
-
-                        if(result.IsSuccess)
-                        {
-                            InvokeEvents(result.Content);
-                        }
-
-                        PLCDataService.IsConnect = result.IsSuccess;
+                        InvokeEvents(result.Content);
                     }
                     else
                     {
-                        var reuslt = PLCDataService.Connect(SystemInfoService.Instance.SysInfo);
-                        if(!reuslt.IsSuccess)
-                        {
-                            throw new Exception("PLC连接异常,异常信息" + reuslt.Message);
-                        }
+                        log.Error("get plc data fail : " + result.Message);
                     }
 
                     Thread.Sleep(1000);

@@ -9,8 +9,9 @@ namespace tolson.BoosterStation.Dto
 {
     public class SystemInfo
     {
+        #region PLC连接参数
         /// <summary>
-        /// CPUT类型
+        /// CPU类型
         /// </summary>
         public CpuType CpuType { get; set; }
         public string IpAddress { get; set; }
@@ -22,6 +23,13 @@ namespace tolson.BoosterStation.Dto
         /// 插槽号
         /// </summary>
         public short Slot { get; set; }
+        /// <summary>
+        /// 心跳检测地址
+        /// </summary>
+        public string HeartBeatAddress { get; set; }
+        #endregion PLC连接参数
+
+        #region 系统参数
         /// <summary>
         /// 是否开机启动
         /// </summary>
@@ -38,5 +46,6 @@ namespace tolson.BoosterStation.Dto
         /// 摄像头序号
         /// </summary>
         public int CamaraIndex { get; set; }
+        #endregion 系统参数
     }
 }

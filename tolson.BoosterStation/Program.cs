@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using tolson.BoosterStation.Adadpter;
 using tolson.BoosterStation.Service;
 using tolson.BoosterStation.UI;
+using tolson.BoosterStation.Dto;
+using xbd.DataConvertLib;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = false)]
 namespace tolson.BoosterStation
@@ -44,8 +46,6 @@ namespace tolson.BoosterStation
                 // 页面设置
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                // 初始化数据库连接
-                MySqlHelper.ConnString = GetSQLConnectString();
                 // 初始化主界面
                 Application.Run(new FormMain());
                 //Application.Run(new FormLSMotion());
@@ -59,29 +59,6 @@ namespace tolson.BoosterStation
                 new MsgBoxNoConfirm("This Application is already running").ShowDialog();
             }
 
-        }
-
-        /// <summary>
-        /// 获取数据库连接信息
-        /// </summary>
-        /// <returns></returns>
-        private static string GetSQLConnectString()
-        {
-            string path = Application.StartupPath + "\\MySQLConfig.ini"; // string iniName = System.IO.Directory.GetCurrentDirectory() + @"\LocatSet.ini"; // MessageBox.Show(iniName);
-
-            if(System.IO.File.Exists(path))
-            {
-                string Server = IniConfigHelper.ReadIniData("MySQL", "Server", "127.0.0.1", path);
-                int Port = Convert.ToInt16(IniConfigHelper.ReadIniData("MySQL", "Port", "3306", path));
-                string Database = IniConfigHelper.ReadIniData("MySQL", "Database", "", path);
-                string User = IniConfigHelper.ReadIniData("MySQL", "User", "", path);
-                string Password = IniConfigHelper.ReadIniData("MySQL", "Password", "", path);
-                string CharacterSet = IniConfigHelper.ReadIniData("MySQL", "CharacterSet", "UTF8", path);
-
-                return $"Server='{Server}';Port={Port};Database='{Database}';User='{User}';Password='{Password}';charset='{CharacterSet}';pooling=true;SslMode='none'";                                                                                                                                                        // MessageBox.Show(MySqlHelper.Conn);
-            }
-
-            return string.Empty;
         }
 
         /// <summary>

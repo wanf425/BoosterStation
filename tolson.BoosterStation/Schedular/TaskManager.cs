@@ -12,15 +12,18 @@ namespace tolson.BoosterStation.Schedular
     {
         public static AutoResetEvent AutoResetEvent = new AutoResetEvent(true);
         public PLCDataTask PlcTask = new PLCDataTask();
+        public PLCHeartBeatTask PlcHeartBeatTask = new PLCHeartBeatTask();
 
         public void StartAllTasks()
         {
             PlcTask.Start();
+            PlcHeartBeatTask.Start();
         }
 
         public void StopAllTasks()
         {
             PlcTask.Stop();
+            PlcHeartBeatTask.Stop();
         }
     }
 }

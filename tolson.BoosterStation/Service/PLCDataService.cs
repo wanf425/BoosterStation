@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -18,22 +19,13 @@ namespace tolson.BoosterStation.Service
     {
         private S7NetLib s7NetLib;
         private PLCDataService() { }
-        public bool IsConnect { get; set; } = false;
-        public bool IsFirstScan { get; set; } = true;
+        public bool IsConnect => s7NetLib.IsConnect;
+        private static readonly ILog log = LogManager.GetLogger(typeof(PLCDataService));
 
         public OperateResult Connect(SystemInfo sysInfo)
         {
-            // 如果是第一次，直接连接
-            if(this.IsFirstScan)
-            {
-                this.IsFirstScan = false;
-            }
-            else
-            {   // 如果不是第一次，重新连接
-                Thread.Sleep(1000);
-                Disconnect();
-            }
-
+            log.Info("Connect plc start");
+            Disconnect();
             s7NetLib = new S7NetLib();
             s7NetLib.CpuType = sysInfo.CpuType;
             s7NetLib.IpAddress = sysInfo.IpAddress;
@@ -41,16 +33,19 @@ namespace tolson.BoosterStation.Service
             s7NetLib.Slot = sysInfo.Slot;
 
             OperateResult result = s7NetLib.Connect();
-            this.IsConnect = result.IsSuccess;
+
+            string msg = result.IsSuccess ? "" : (",error msg:" + result.Message);
+            log.Info("Connect plc end, result:" + result.IsSuccess + ",IsConnect:" + IsConnect + msg);
             return result;
         }
 
         public void Disconnect()
         {
+            log.Info("Disconnect plc start");
             if(s7NetLib != null)
             {
                 s7NetLib.Disconnect();
-                IsConnect = false;
+                log.Info("Disconnect plc end, IsConnect:" + s7NetLib.IsConnect);
             }
         }
 
@@ -73,6 +68,18 @@ namespace tolson.BoosterStation.Service
 
             // [3]读取类
             return s7NetLib.ReadClass<PlcData>(1, 0);
+        }
+
+        /// <summary>
+        /// 心跳检测
+        /// 只实现了简单版本，能够读取到值就认为连接正常
+        /// 更好的做法是读取一个固定的地址，如果读取成功，再写入一个固定的地址，然后再读取，如果读取成功，认为连接正常
+        /// </summary>
+        /// <returns></returns>
+        public bool HeartBeat()
+        {
+            OperateResult result = s7NetLib.ReadVariable("DB1.DBX100.0");
+            return result.IsSuccess;
         }
 
         /// <summary>

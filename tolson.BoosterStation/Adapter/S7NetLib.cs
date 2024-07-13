@@ -12,11 +12,13 @@ namespace tolson.BoosterStation.Adadpter
     public class S7NetLib
     {
         private Plc s7plc;
-
+        private static object lockObj = new object();
         public CpuType CpuType { get; set; }
         public string IpAddress { get; set; }
         public short Rack { get; set; }
         public short Slot { get; set; }
+        public bool IsConnect => s7plc.IsConnected;
+
         public S7NetLib()
         {
 
@@ -29,32 +31,36 @@ namespace tolson.BoosterStation.Adadpter
             Rack = rack;
             Slot = slot;
         }
-
-        private static object lockObj = new object();
-
+       
         public OperateResult Connect()
         {
-            try
+            lock(lockObj)
             {
-                if(s7plc != null && s7plc.IsConnected)
+                try
                 {
-                    s7plc.Close();
+                    if(s7plc != null && s7plc.IsConnected)
+                    {
+                        s7plc.Close();
+                    }
+                    s7plc = new Plc(CpuType, IpAddress, Rack, Slot);
+                    s7plc.Open();
+                    return OperateResult.CreateSuccessResult();
                 }
-                s7plc = new Plc(CpuType, IpAddress, Rack, Slot);
-                s7plc.Open();
-                return OperateResult.CreateSuccessResult();
-            }
-            catch(Exception ex)
-            {
-                return OperateResult.CreateFailResult(ex.Message);
+                catch(Exception ex)
+                {
+                    return OperateResult.CreateFailResult(ex.Message);
+                }
             }
         }
 
         public void Disconnect()
         {
-            if(s7plc != null && s7plc.IsConnected)
+            lock(lockObj)
             {
-                s7plc.Close();
+                if(s7plc != null && s7plc.IsConnected)
+                {
+                    s7plc.Close();
+                }
             }
         }
 
@@ -143,7 +149,7 @@ namespace tolson.BoosterStation.Adadpter
             }
             else
             {
-                return OperateResult.CreateFailResult<T>("请检查PLC连接是否正常");
+                return OperateResult.CreateFailResult<T>("PLC未连接");
             }
         }
 
