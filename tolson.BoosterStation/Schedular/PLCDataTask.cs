@@ -15,7 +15,7 @@ namespace tolson.BoosterStation.Schedular
     public class PLCDataTask : BaseTask
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PLCDataTask));
-        private PLCDataService PLCDataService = PLCDataService.Instance;
+        private PLCDataService plcDataService = PLCDataService.Instance;
         public delegate void UpdateByPlcDataEventHandler(PlcData ddata);
         public event UpdateByPlcDataEventHandler UpdateByPlcDataEvent;
 
@@ -25,7 +25,7 @@ namespace tolson.BoosterStation.Schedular
             {
                 try
                 {
-                    OperateResult<PlcData> result = PLCDataService.ReadPlcData();
+                    OperateResult<PlcData> result = plcDataService.ReadPlcData();
 
                     if(result.IsSuccess)
                     {

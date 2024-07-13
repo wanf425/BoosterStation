@@ -16,6 +16,10 @@ namespace tolson.BoosterStation.Schedular
         protected CancellationTokenSource cts = new CancellationTokenSource();
         protected abstract void DoTask();
 
+        /// <summary>
+        /// 启动任务
+        /// TODO 未考虑停止后立即启动的情况
+        /// </summary>
         public void Start()
         {
             // 如果任务没有运行或者已经完成，重新启动任务
@@ -32,22 +36,6 @@ namespace tolson.BoosterStation.Schedular
         public void Stop()
         {
             cts.Cancel();
-        }
-
-        public TaskStatus Status
-        {
-            get
-            {
-                if(runningTask != null)
-                {
-                    return runningTask.Status;
-                }
-                else
-                {
-                    return TaskStatus.Created;
-                }
-                
-            }
         }
     }
 }
