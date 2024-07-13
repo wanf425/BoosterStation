@@ -211,7 +211,6 @@ namespace tolson.BoosterStation.UI
 
         private void toggle_Pump1_CheckedChanged(object sender, EventArgs e)
         {
-            log.Info("toggle_Pump1_CheckedChanged");
             // 修改pump1状态
             bool result = plcDataService.InPump1Control(toggle_Pump1.Checked);
 
@@ -226,10 +225,8 @@ namespace tolson.BoosterStation.UI
 
         private void toggle_Pump2_CheckedChanged(object sender, EventArgs e)
         {
-            log.Info("toggle_Pump2_CheckedChanged");
-
             // 修改pump2状态
-            bool result = plcDataService.InPump2Control(toggle_Pump1.Checked);
+            bool result = plcDataService.InPump2Control(toggle_Pump2.Checked);
 
             // 操作失败，恢复状态
             if(!result)
