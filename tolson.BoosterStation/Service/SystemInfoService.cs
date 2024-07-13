@@ -52,7 +52,8 @@ namespace tolson.BoosterStation.Service
             IpAddress,
             CpuType,
             Slot,
-            Rack
+            Rack,
+            HeartBeatAddress
         }
 
         private enum SysConfigKey
@@ -84,6 +85,7 @@ namespace tolson.BoosterStation.Service
                 newInfo.CpuType = (CpuType)Enum.Parse(typeof(CpuType), IniConfigHelper.ReadIniData(ConfigSection.通讯参数.ToString(), CommConfigKey.CpuType.ToString(), "S71500", COMM_CONFIG_PATH));
                 newInfo.Slot = short.Parse(IniConfigHelper.ReadIniData(ConfigSection.通讯参数.ToString(), CommConfigKey.Slot.ToString(), "0", COMM_CONFIG_PATH));
                 newInfo.Rack = short.Parse(IniConfigHelper.ReadIniData(ConfigSection.通讯参数.ToString(), CommConfigKey.Rack.ToString(), "0", COMM_CONFIG_PATH));
+                newInfo.HeartBeatAddress = IniConfigHelper.ReadIniData(ConfigSection.通讯参数.ToString(), CommConfigKey.HeartBeatAddress.ToString(), "", COMM_CONFIG_PATH);
 
                 newInfo.AutoStart = IniConfigHelper.ReadIniData(ConfigSection.系统参数.ToString(), SysConfigKey.AutoStart.ToString(), "1", SYS_CONFIG_PATH) == "1";
                 newInfo.ScreenTime = int.Parse(IniConfigHelper.ReadIniData(ConfigSection.系统参数.ToString(), SysConfigKey.ScreenTime.ToString(), "0", SYS_CONFIG_PATH));

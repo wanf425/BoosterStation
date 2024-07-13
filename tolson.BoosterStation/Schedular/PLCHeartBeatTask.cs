@@ -21,7 +21,7 @@ namespace tolson.BoosterStation.Schedular
             {
                 try
                 {
-                    bool isConnect = plcDataService.HeartBeat();
+                    bool isConnect = plcDataService.HeartBeat(systemInfoService.SysInfo.HeartBeatAddress);
 
                     if(!isConnect)
                     {

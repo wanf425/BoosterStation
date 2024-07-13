@@ -76,9 +76,9 @@ namespace tolson.BoosterStation.Service
         /// 更好的做法是读取一个固定的地址，如果读取成功，再写入一个固定的地址，然后再读取，如果读取成功，认为连接正常
         /// </summary>
         /// <returns></returns>
-        public bool HeartBeat()
+        public bool HeartBeat(string address)
         {
-            OperateResult result = s7NetLib.ReadVariable("DB1.DBX100.0");
+            OperateResult result = s7NetLib.ReadVariable(address);
             return result.IsSuccess;
         }
 
