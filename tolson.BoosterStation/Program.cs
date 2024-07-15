@@ -47,8 +47,8 @@ namespace tolson.BoosterStation
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 // 初始化主界面
-                Application.Run(new FormMain());
-                //Application.Run(new FormLSMotion());
+                //Application.Run(new FormMain());
+                Application.Run(new FormLSMotion());
                 // 应用程序可以退出
                 glExitApp = true;
                 log.Info("---------------Application end-----------------");

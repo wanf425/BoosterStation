@@ -58,8 +58,8 @@ namespace tolson.BoosterStation.UI
             // 启动线程
             taskManager.StartAllTasks();
             // 如何将注册代码封装转到taskManager中 TODO
-            taskManager.PlcTask.UpdateByPlcDataEvent += InvokeUpdatePLCUI;
-            taskManager.PlcTask.UpdateByPlcDataEvent += HistoryDataService.Instance.UpdateByPLCData;
+            taskManager.plcTask.UpdateByPlcDataEvent += InvokeUpdatePLCUI;
+            taskManager.plcTask.UpdateByPlcDataEvent += HistoryDataService.Instance.UpdateByPLCData;
         }
 
         /// <summary>

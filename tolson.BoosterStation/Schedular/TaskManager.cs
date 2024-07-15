@@ -11,19 +11,20 @@ namespace tolson.BoosterStation.Schedular
     public class TaskManager : Singleton<TaskManager>
     {
         public static AutoResetEvent AutoResetEvent = new AutoResetEvent(true);
-        public PLCDataTask PlcTask = new PLCDataTask();
-        public PLCHeartBeatTask PlcHeartBeatTask = new PLCHeartBeatTask();
+        public PLCDataTask plcTask = new PLCDataTask();
+        public PLCHeartBeatTask plcHeartBeatTask = new PLCHeartBeatTask();
+        public MotionWorkTask motionWorkTask = new MotionWorkTask();
 
         public void StartAllTasks()
         {
-            PlcTask.Start();
-            PlcHeartBeatTask.Start();
+            plcTask.Start();
+            plcHeartBeatTask.Start();
         }
 
         public void StopAllTasks()
         {
-            PlcTask.Stop();
-            PlcHeartBeatTask.Stop();
+            plcTask.Stop();
+            plcHeartBeatTask.Stop();
         }
     }
 }

@@ -13,7 +13,6 @@ namespace tolson.BoosterStation.Schedular
     {
         private PLCDataService plcDataService = PLCDataService.Instance;
         private SystemInfoService systemInfoService = SystemInfoService.Instance;
-        private static readonly ILog log = LogManager.GetLogger(typeof(PLCHeartBeatTask));
        
         protected override void DoTask()
         {

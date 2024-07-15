@@ -113,6 +113,7 @@
     <Compile Include="Schedular\PLCDataTask.cs" />
     <Compile Include="Schedular\PLCHeartBeatTask.cs" />
     <Compile Include="Schedular\TaskManager.cs" />
+    <Compile Include="Schedular\MotionWorkTask.cs" />
     <Compile Include="Service\HistoryDataService.cs" />
     <Compile Include="Service\LSDataService.cs" />
     <Compile Include="UI\FormHistory.cs">

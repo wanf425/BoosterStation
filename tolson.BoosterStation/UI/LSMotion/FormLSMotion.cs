@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using tolson.BoosterStation.Adadpter;
 using tolson.BoosterStation.Dto;
+using tolson.BoosterStation.Schedular;
 using tolson.BoosterStation.Service;
 using xbd.DataConvertLib;
 
@@ -19,10 +20,16 @@ namespace tolson.BoosterStation.UI
     public partial class FormLSMotion : Form
     {
         private LSData lsData;
+        private TaskManager taskManager = TaskManager.Instance;
 
         public FormLSMotion()
         {
             InitializeComponent();
+        }
+
+        private void FormLSMotion_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void label_Close_Click(object sender, EventArgs e)
@@ -108,7 +115,8 @@ namespace tolson.BoosterStation.UI
                 if(res.IsSuccess)
                 {
                     new MsgBoxNoConfirm($"运行成功").ShowDialog();
-                } else
+                }
+                else
                 {
                     new MsgBoxNoConfirm($"运行失败{res.Message}").ShowDialog();
                 }
@@ -117,6 +125,21 @@ namespace tolson.BoosterStation.UI
             {
                 new MsgBoxNoConfirm($"运行失败{res.Message}").ShowDialog();
             }
+        }
+
+        private void button_stop_Click(object sender, EventArgs e)
+        {
+            taskManager.motionWorkTask.Stop();
+        }
+
+        private void button_mergeStop_Click(object sender, EventArgs e)
+        {
+            taskManager.motionWorkTask.Stop();
+        }
+
+        private void button_start_Click(object sender, EventArgs e)
+        {
+            taskManager.motionWorkTask.Start();
         }
     }
 }

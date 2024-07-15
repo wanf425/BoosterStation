@@ -49,6 +49,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButton_abs = new System.Windows.Forms.RadioButton();
             this.radioButton_rel = new System.Windows.Forms.RadioButton();
+            this.button_mergeStop = new System.Windows.Forms.Button();
+            this.button_stop = new System.Windows.Forms.Button();
             this.button_excute = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_init = new System.Windows.Forms.Button();
@@ -64,6 +66,8 @@
             this.label_Title = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button_start = new System.Windows.Forms.Button();
             this.panel_main.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Dist)).BeginInit();
@@ -77,6 +81,7 @@
             this.groupBox1.SuspendLayout();
             this.panel_top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_main
@@ -84,19 +89,20 @@
             this.panel_main.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(45)))));
             this.panel_main.Controls.Add(this.groupBox3);
             this.panel_main.Controls.Add(this.groupBox2);
-            this.panel_main.Controls.Add(this.button_excute);
             this.panel_main.Controls.Add(this.groupBox1);
             this.panel_main.Controls.Add(this.panel_top);
+            this.panel_main.Controls.Add(this.groupBox4);
             this.panel_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_main.Location = new System.Drawing.Point(1, 1);
             this.panel_main.Name = "panel_main";
-            this.panel_main.Size = new System.Drawing.Size(412, 627);
+            this.panel_main.Size = new System.Drawing.Size(412, 697);
             this.panel_main.TabIndex = 2;
             this.panel_main.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             this.panel_main.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseMove);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button_excute);
             this.groupBox3.Controls.Add(this.comboBox_axis);
             this.groupBox3.Controls.Add(this.numericUpDown_Dist);
             this.groupBox3.Controls.Add(this.label12);
@@ -115,9 +121,9 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(22, 354);
+            this.groupBox3.Location = new System.Drawing.Point(22, 340);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(362, 195);
+            this.groupBox3.Size = new System.Drawing.Size(362, 241);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "运动参数";
@@ -377,6 +383,40 @@
             this.radioButton_rel.Text = "相对";
             this.radioButton_rel.UseVisualStyleBackColor = true;
             // 
+            // button_mergeStop
+            // 
+            this.button_mergeStop.BackgroundImage = global::tolson.BoosterStation.Properties.Resources.Border;
+            this.button_mergeStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_mergeStop.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.button_mergeStop.FlatAppearance.BorderSize = 0;
+            this.button_mergeStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_mergeStop.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_mergeStop.ForeColor = System.Drawing.Color.White;
+            this.button_mergeStop.Location = new System.Drawing.Point(255, 33);
+            this.button_mergeStop.Name = "button_mergeStop";
+            this.button_mergeStop.Size = new System.Drawing.Size(83, 39);
+            this.button_mergeStop.TabIndex = 4;
+            this.button_mergeStop.Text = "急停";
+            this.button_mergeStop.UseVisualStyleBackColor = true;
+            this.button_mergeStop.Click += new System.EventHandler(this.button_mergeStop_Click);
+            // 
+            // button_stop
+            // 
+            this.button_stop.BackgroundImage = global::tolson.BoosterStation.Properties.Resources.Border;
+            this.button_stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_stop.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.button_stop.FlatAppearance.BorderSize = 0;
+            this.button_stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_stop.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_stop.ForeColor = System.Drawing.Color.White;
+            this.button_stop.Location = new System.Drawing.Point(140, 33);
+            this.button_stop.Name = "button_stop";
+            this.button_stop.Size = new System.Drawing.Size(83, 39);
+            this.button_stop.TabIndex = 4;
+            this.button_stop.Text = "停止";
+            this.button_stop.UseVisualStyleBackColor = true;
+            this.button_stop.Click += new System.EventHandler(this.button_stop_Click);
+            // 
             // button_excute
             // 
             this.button_excute.BackgroundImage = global::tolson.BoosterStation.Properties.Resources.Border;
@@ -386,7 +426,7 @@
             this.button_excute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_excute.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button_excute.ForeColor = System.Drawing.Color.White;
-            this.button_excute.Location = new System.Drawing.Point(162, 568);
+            this.button_excute.Location = new System.Drawing.Point(140, 191);
             this.button_excute.Name = "button_excute";
             this.button_excute.Size = new System.Drawing.Size(83, 39);
             this.button_excute.TabIndex = 4;
@@ -564,12 +604,43 @@
             this.label1.Size = new System.Drawing.Size(412, 1);
             this.label1.TabIndex = 1;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button_mergeStop);
+            this.groupBox4.Controls.Add(this.button_start);
+            this.groupBox4.Controls.Add(this.button_stop);
+            this.groupBox4.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.groupBox4.ForeColor = System.Drawing.Color.White;
+            this.groupBox4.Location = new System.Drawing.Point(22, 592);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(362, 85);
+            this.groupBox4.TabIndex = 7;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "自动任务";
+            // 
+            // button_start
+            // 
+            this.button_start.BackgroundImage = global::tolson.BoosterStation.Properties.Resources.Border;
+            this.button_start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_start.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.button_start.FlatAppearance.BorderSize = 0;
+            this.button_start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_start.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_start.ForeColor = System.Drawing.Color.White;
+            this.button_start.Location = new System.Drawing.Point(25, 32);
+            this.button_start.Name = "button_start";
+            this.button_start.Size = new System.Drawing.Size(83, 39);
+            this.button_start.TabIndex = 4;
+            this.button_start.Text = "启动";
+            this.button_start.UseVisualStyleBackColor = true;
+            this.button_start.Click += new System.EventHandler(this.button_start_Click);
+            // 
             // FormLSMotion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(414, 629);
+            this.ClientSize = new System.Drawing.Size(414, 699);
             this.Controls.Add(this.panel_main);
             this.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -578,6 +649,7 @@
             this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "模板窗体";
+            this.Load += new System.EventHandler(this.FormLSMotion_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseMove);
             this.panel_main.ResumeLayout(false);
@@ -596,6 +668,7 @@
             this.panel_top.ResumeLayout(false);
             this.panel_top.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -638,5 +711,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button_excute;
         private System.Windows.Forms.ComboBox comboBox_axis;
+        private System.Windows.Forms.Button button_stop;
+        private System.Windows.Forms.Button button_mergeStop;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button_start;
     }
 }
