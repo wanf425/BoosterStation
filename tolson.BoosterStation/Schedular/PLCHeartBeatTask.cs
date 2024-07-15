@@ -39,7 +39,7 @@ namespace tolson.BoosterStation.Schedular
                                 {
                                     break;
                                 }
-                                Thread.Sleep(100);
+                                Sleep(100);
                             }
                         }
                     }
@@ -49,7 +49,7 @@ namespace tolson.BoosterStation.Schedular
                     log.Error("心跳检测异常", ex);
                 }
 
-                Thread.Sleep(10000);
+                Sleep(5000);
             }
         }
     }

@@ -37,5 +37,13 @@ namespace tolson.BoosterStation.Schedular
         {
             cts.Cancel();
         }
+
+        public void Sleep(int milliseconds)
+        {
+            if(!cts.IsCancellationRequested)
+            {
+                Thread.Sleep(milliseconds);
+            }
+        }
     }
 }

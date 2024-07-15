@@ -386,11 +386,11 @@
             this.button_excute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_excute.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button_excute.ForeColor = System.Drawing.Color.White;
-            this.button_excute.Location = new System.Drawing.Point(142, 568);
+            this.button_excute.Location = new System.Drawing.Point(162, 568);
             this.button_excute.Name = "button_excute";
-            this.button_excute.Size = new System.Drawing.Size(129, 39);
+            this.button_excute.Size = new System.Drawing.Size(83, 39);
             this.button_excute.TabIndex = 4;
-            this.button_excute.Text = "执行运动";
+            this.button_excute.Text = "运行";
             this.button_excute.UseVisualStyleBackColor = true;
             this.button_excute.Click += new System.EventHandler(this.button_excute_Click);
             // 

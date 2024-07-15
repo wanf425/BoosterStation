@@ -11,6 +11,9 @@ namespace tolson.BoosterStation.Adadpter
 {
     public class S7NetLib
     {
+        /// <summary>
+        /// TODO 添加连接池，提升多线程读写性能
+        /// </summary>
         private Plc s7plc;
         private static object lockObj = new object();
         public CpuType CpuType { get; set; }

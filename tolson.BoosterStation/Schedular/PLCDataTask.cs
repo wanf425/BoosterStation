@@ -35,28 +35,37 @@ namespace tolson.BoosterStation.Schedular
                     {
                         log.Error("get plc data fail : " + result.Message);
                     }
-
-                    Thread.Sleep(1000);
                 }
                 catch(Exception ex)
                 {
                     log.Error("PLCTask 运行异常", ex);
-                    Thread.Sleep(5000);
                 }
+
+                Sleep(1000);
             }
         }
-        private void InvokeEvents(PlcData data)
+
+        /// <summary>
+        /// 调用注册事件
+        /// 调用前判断线程是否要退出，避免由于耗时操作导致线程无法终止
+        /// </summary>
+        /// <param name="data"></param>
+        private async void InvokeEvents(PlcData data)
         {
             var invocationList = UpdateByPlcDataEvent?.GetInvocationList();
             if(invocationList != null && !cts.IsCancellationRequested)
             {
+                List<Task> tasks = new List<Task>();
                 foreach(UpdateByPlcDataEventHandler handler in invocationList)
                 {
                     if(!cts.IsCancellationRequested)
                     {
-                        handler.Invoke(data);
+                        var task = Task.Run(() => handler.Invoke(data));
+                        tasks.Add(task);
                     }
                 }
+
+                await Task.WhenAll(tasks);
             }
         }
     }
