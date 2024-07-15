@@ -116,10 +116,10 @@
     <Compile Include="Schedular\MotionWorkTask.cs" />
     <Compile Include="Service\HistoryDataService.cs" />
     <Compile Include="Service\LSDataService.cs" />
-    <Compile Include="UI\FormHistory.cs">
+    <Compile Include="UI\BoosterStation\FormHistory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormHistory.Designer.cs">
+    <Compile Include="UI\BoosterStation\FormHistory.Designer.cs">
       <DependentUpon>FormHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\LSMotion\FormLSMotion.cs">
@@ -128,44 +128,44 @@
     <Compile Include="UI\LSMotion\FormLSMotion.Designer.cs">
       <DependentUpon>FormLSMotion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MsgBoxValveControl.cs">
+    <Compile Include="UI\BoosterStation\MsgBoxValveControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MsgBoxValveControl.Designer.cs">
+    <Compile Include="UI\BoosterStation\MsgBoxValveControl.Designer.cs">
       <DependentUpon>MsgBoxValveControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\PLCDataService.cs" />
-    <Compile Include="UI\MsgBoxComfirm.cs">
+    <Compile Include="UI\BoosterStation\MsgBoxComfirm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MsgBoxComfirm.Designer.cs">
+    <Compile Include="UI\BoosterStation\MsgBoxComfirm.Designer.cs">
       <DependentUpon>MsgBoxComfirm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MsgBoxNoConfirm.cs">
+    <Compile Include="UI\BoosterStation\MsgBoxNoConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MsgBoxNoConfirm.Designer.cs">
+    <Compile Include="UI\BoosterStation\MsgBoxNoConfirm.Designer.cs">
       <DependentUpon>MsgBoxNoConfirm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FormParamSet.cs">
+    <Compile Include="UI\BoosterStation\FormParamSet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormParamSet.Designer.cs">
+    <Compile Include="UI\BoosterStation\FormParamSet.Designer.cs">
       <DependentUpon>FormParamSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\SystemInfoService.cs" />
     <Compile Include="Util\DataGridViewHelper.cs" />
     <Compile Include="Adapter\IniConfigHelper.cs" />
-    <Compile Include="UI\FormMain.cs">
+    <Compile Include="UI\BoosterStation\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormMain.Designer.cs">
+    <Compile Include="UI\BoosterStation\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MeteShow.cs">
+    <Compile Include="UI\BoosterStation\MeteShow.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\MeteShow.Designer.cs">
+    <Compile Include="UI\BoosterStation\MeteShow.Designer.cs">
       <DependentUpon>MeteShow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -173,28 +173,28 @@
     <Compile Include="Adapter\MySqlHelper.cs" />
     <Compile Include="Adapter\S7NetLib.cs" />
     <Compile Include="Util\Singleton.cs" />
-    <EmbeddedResource Include="UI\FormHistory.resx">
+    <EmbeddedResource Include="UI\BoosterStation\FormHistory.resx">
       <DependentUpon>FormHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LSMotion\FormLSMotion.resx">
       <DependentUpon>FormLSMotion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MsgBoxValveControl.resx">
+    <EmbeddedResource Include="UI\BoosterStation\MsgBoxValveControl.resx">
       <DependentUpon>MsgBoxValveControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MsgBoxComfirm.resx">
+    <EmbeddedResource Include="UI\BoosterStation\MsgBoxComfirm.resx">
       <DependentUpon>MsgBoxComfirm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MsgBoxNoConfirm.resx">
+    <EmbeddedResource Include="UI\BoosterStation\MsgBoxNoConfirm.resx">
       <DependentUpon>MsgBoxNoConfirm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FormMain.resx">
+    <EmbeddedResource Include="UI\BoosterStation\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FormParamSet.resx">
+    <EmbeddedResource Include="UI\BoosterStation\FormParamSet.resx">
       <DependentUpon>FormParamSet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MeteShow.resx">
+    <EmbeddedResource Include="UI\BoosterStation\MeteShow.resx">
       <DependentUpon>MeteShow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
