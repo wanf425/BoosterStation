@@ -1,15 +1,4 @@
 .vs/
-packages
+packages/
 bin/
 obj/
-/tolson.BoosterStation/bin/Debug/tolson.BoosterStation.exe.config
-/tolson.BoosterStation/bin/Debug/xbd.ControlLib.dll
-/tolson.BoosterStation/bin/Debug/xbd.ControlLib.pdb
-/xbd.ControlLib/.vs/xbd.ControlLib.csproj.dtbcache.json
-/xbd.ControlLib/bin/Debug/xbd.ControlLib.dll
-/xbd.ControlLib/bin/Debug/xbd.ControlLib.pdb
-/xbd.ControlLib/obj/Debug/xbd.ControlLib.pdb
-/xbd.ControlLib/obj/Debug/xbd.ControlLib.dll
-/xbd.ControlLib/obj/Debug/xbd.ControlLib.csproj.FileListAbsolute.txt
-/xbd.ControlLib/xbd.ControlLib.csproj.user
-/tolson.BoosterStation/obj/Debug/tolson.BoosterStation.csproj.GenerateResource.cache
