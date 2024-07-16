@@ -16,6 +16,7 @@ using tolson.BoosterStation.Dto;
 using tolson.BoosterStation.Schedular;
 using tolson.BoosterStation.Service;
 using tolson.BoosterStation.UI;
+using tolson.BoosterStation.Util;
 using xbd.ControlLib;
 using xbd.DataConvertLib;
 using xbd.s7netplus;
@@ -68,7 +69,7 @@ namespace tolson.BoosterStation.UI
         /// <returns></returns>
         private static string GetSQLConnectString()
         {
-            string path = Application.StartupPath + "\\MySQLConfig.ini"; // string iniName = System.IO.Directory.GetCurrentDirectory() + @"\LocatSet.ini"; // MessageBox.Show(iniName);
+            string path = Config.GetMySQLConfigPath();
 
             if(System.IO.File.Exists(path))
             {

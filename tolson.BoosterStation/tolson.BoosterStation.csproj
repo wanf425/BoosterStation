@@ -154,6 +154,7 @@
       <DependentUpon>FormParamSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\SystemInfoService.cs" />
+    <Compile Include="Util\Config.cs" />
     <Compile Include="Util\DataGridViewHelper.cs" />
     <Compile Include="Adapter\IniConfigHelper.cs" />
     <Compile Include="UI\BoosterStation\FormMain.cs">
@@ -207,6 +208,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Config\MySQLConfig.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\PlcConfig.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\SysConfig.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
