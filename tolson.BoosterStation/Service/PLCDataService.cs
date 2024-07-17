@@ -26,14 +26,14 @@ namespace tolson.BoosterStation.Service
         {
             log.Info("Connect plc start");
             Disconnect();
-            s7NetLib = new S7NetLib();
+
+            S7NetLib s7NetLib = new S7NetLib();
             s7NetLib.CpuType = sysInfo.CpuType;
             s7NetLib.IpAddress = sysInfo.IpAddress;
             s7NetLib.Rack = sysInfo.Rack;
             s7NetLib.Slot = sysInfo.Slot;
-
             OperateResult result = s7NetLib.Connect();
-
+            this.s7NetLib = s7NetLib;
             string msg = result.IsSuccess ? "" : (",error msg:" + result.Message);
             log.Info("Connect plc end, result:" + result.IsSuccess + ",IsConnect:" + IsConnect + msg);
             return result;
@@ -45,7 +45,7 @@ namespace tolson.BoosterStation.Service
             if(s7NetLib != null)
             {
                 s7NetLib.Disconnect();
-                log.Info("Disconnect plc end, IsConnect:" + s7NetLib.IsConnect);
+                log.Info("Disconnect plc end, IsConnect:" + IsConnect);
             }
         }
 

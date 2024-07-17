@@ -13,7 +13,7 @@ namespace tolson.BoosterStation.Schedular
     {
         private PLCDataService plcDataService = PLCDataService.Instance;
         private SystemInfoService systemInfoService = SystemInfoService.Instance;
-       
+
         protected override void DoTask()
         {
             while(!cts.IsCancellationRequested)
@@ -33,7 +33,7 @@ namespace tolson.BoosterStation.Schedular
                                 var result = plcDataService.Connect(systemInfoService.SysInfo);
                                 bool isSuccess = result.IsSuccess;
                                 string erroMsg = isSuccess ? "" : " msg:" + result.Message;
-                                log.Info("第" + (i+1) + "次重连，连接结果：" + isSuccess + erroMsg);
+                                log.Info("第" + (i + 1) + "次重连，连接结果：" + isSuccess + erroMsg);
                                 if(isSuccess)
                                 {
                                     break;
@@ -48,7 +48,7 @@ namespace tolson.BoosterStation.Schedular
                     log.Error("心跳检测异常", ex);
                 }
 
-                Sleep(5000);
+                Sleep(3000);
             }
         }
     }
