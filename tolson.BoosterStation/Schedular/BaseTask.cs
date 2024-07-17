@@ -15,15 +15,10 @@ namespace tolson.BoosterStation.Schedular
 {
     public abstract class BaseTask
     {
-        protected static ILog log = LogManager.GetLogger(typeof(BaseTask));
+        protected ILog log => LogManager.GetLogger(GetType());
         protected Task runningTask;
         protected CancellationTokenSource cts = new CancellationTokenSource();
         protected abstract void DoTask();
-
-        public BaseTask()
-        {
-            log = LogManager.GetLogger(this.GetType());
-        }
 
         /// <summary>
         /// 启动任务

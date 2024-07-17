@@ -304,6 +304,9 @@
       <Name>xbd.s7netplus</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Config\architecture.png" />
+    <Content Include="Config\initMySQL.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
