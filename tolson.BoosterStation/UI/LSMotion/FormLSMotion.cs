@@ -129,17 +129,20 @@ namespace tolson.BoosterStation.UI
 
         private void button_stop_Click(object sender, EventArgs e)
         {
-            taskManager.motionWorkTask.Stop();
+            taskManager.workFlowTask.Stop();
+            taskManager.taskStartEvent.Reset();
         }
 
         private void button_mergeStop_Click(object sender, EventArgs e)
         {
-            taskManager.motionWorkTask.Stop();
+            taskManager.workFlowTask.Stop();
+            taskManager.taskStartEvent.Reset();
         }
 
         private void button_start_Click(object sender, EventArgs e)
         {
-            taskManager.motionWorkTask.Start();
+            taskManager.workFlowTask.Start();
+            taskManager.taskStartEvent.Set();
         }
     }
 }
