@@ -39,7 +39,7 @@ namespace tolson.BoosterStation.UI
         private void FormMain_Load(object sender, EventArgs e)
         {
             // 初始化数据库连接
-            MySqlHelper.ConnString = GetSQLConnectString();
+            MySqlHelper.ConnString = GetMySQLConnectString();
 
             // 读取系统配置
             SystemInfo sysInfo = systemInfoService.SysInfo;
@@ -67,7 +67,7 @@ namespace tolson.BoosterStation.UI
         /// 获取数据库连接信息
         /// </summary>
         /// <returns></returns>
-        private static string GetSQLConnectString()
+        private static string GetMySQLConnectString()
         {
             string path = Config.GetMySQLConfigPath();
 
@@ -84,6 +84,10 @@ namespace tolson.BoosterStation.UI
             }
 
             return string.Empty;
+        }
+
+        private static string GetSQLiteConnectString() { 
+            return "Data Source=" + Application.StartupPath + "\\data;Pooling=true;";
         }
 
         private void InvokeUpdatePLCUI(PlcData plcData)
